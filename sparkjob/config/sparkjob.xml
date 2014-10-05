@@ -11,11 +11,11 @@
 		http://www.springframework.org/schema/batch/spring-batch.xsd">
 
 	<batch:job id="mysampleBatch">
-		<batch:step id="helloSpringXDStep">
-			<batch:tasklet ref="helloSpringXDTasklet" />
+		<batch:step id="tasklet">
+			<batch:tasklet ref="sparkTasklet" />
 		</batch:step>
         </batch:job>
-	<bean id="helloSpringXDTasklet"
-		class="com.springframework.xd.batch.sample.HelloSpringXDTasklet" />
+	<bean id="sparkTasklet"
+		class="com.springframework.xd.spark.sample.SparkTasklet" />
 
 </beans>
