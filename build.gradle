@@ -1,59 +1,24 @@
 apply plugin: 'java'
-apply plugin: 'eclipse'
+apply plugin: 'idea'
 apply plugin: 'maven'
-apply plugin: 'groovy'
 
 group = 'com.springframework.xd.spark'
 
 sourceCompatibility = 1.7
 version = '0.1.0'
 
-buildscript {
-  repositories {
-	jcenter()
-  }
-  dependencies {
-	classpath "com.github.jengelman.gradle.plugins:shadow:1.1.2"
-  }
-}
-
 configurations {
     	provided
 	compile.extendsFrom provided
 }
 
-//apply plugin: 'com.github.johnrengelman.shadow'
-
-jar {
-    dependsOn configurations.runtime
-    from {
-        (configurations.runtime - configurations.provided).collect {
-            it.isDirectory() ? it : zipTree(it)
-        }
-    } {
-        exclude "META-INF/*.SF"
-        exclude "META-INF/*.DSA"
-        exclude "META-INF/*.RSA"
-	exclude "log4j.properties"
-    }
-}
-
-
 repositories {
 	mavenCentral()
-	maven { url 'http://repo.spring.io/milestone' }	
+	maven { url 'http://repo.spring.io/release' }	
 }
 
 dependencies {
-    	compile "org.apache.spark:spark-core_2.10:1.1.0"
-	compile "org.apache.spark:spark-streaming_2.10:1.1.0"
-	compile "org.apache.spark:spark-streaming-kafka_2.10:1.1.0"
-	provided "org.springframework.batch:spring-batch-core:3.0.1.RELEASE"
+    	provided "org.apache.spark:spark-core_2.10:1.2.1"
+	provided "org.apache.spark:spark-streaming_2.10:1.2.1"
+	provided "org.springframework.xd:spring-xd-spark-streaming:1.1.0.RELEASE"
 }
-
-//shadowJar {
-//  append('reference.conf')
-//  dependencies {
-//    exclude(dependency('org.springframework.batch:spring-batch-core:3.0.1.RELEASE'))
-//  }
-//}
